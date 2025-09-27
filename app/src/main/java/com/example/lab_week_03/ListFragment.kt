@@ -1,37 +1,34 @@
 package com.example.lab_week_03
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 
-class ListFragment : Fragment(), View.OnClickListener {
+class ListFragment : Fragment() {
 
-    private lateinit var coffeeListener: CoffeeListener
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is CoffeeListener) coffeeListener = context
-        else throw IllegalStateException("Host Activity must implement CoffeeListener")
-    }
+    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_list, container, false)
+    ) = inflater.inflate(R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val clickableIds = listOf(
-            R.id.affogato, R.id.americano, R.id.latte, R.id.cappuccino, R.id.mocha
-        )
-        clickableIds.forEach { id ->
-            view.findViewById<View>(id).setOnClickListener(this)
-        }
-    }
 
-    override fun onClick(v: View) {
-        coffeeListener.onSelected(v.id)
+        val coffeeViews = listOf(
+            view.findViewById<View>(R.id.affogato),
+            view.findViewById(R.id.americano),
+            view.findViewById(R.id.latte),
+            view.findViewById(R.id.cappuccino),
+            view.findViewById(R.id.mocha)
+        )
+
+        coffeeViews.forEach { coffee ->
+            val args = Bundle().apply { putInt(DetailFragment.COFFEE_ID, coffee.id) }
+            coffee.setOnClickListener(
+                Navigation.createNavigateOnClickListener(R.id.coffee_id_action, args)
+            )
+        }
     }
 }

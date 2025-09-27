@@ -56,4 +56,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.navigation.fragment.ktx) // Baris ini seharusnya sekarang berfungsi
     // implementation(libs.androidx.nav
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 }
