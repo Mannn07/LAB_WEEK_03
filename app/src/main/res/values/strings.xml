@@ -11,4 +11,14 @@
 
     <string name="latte_title">CAFFE LATTE</string>
     <string name="latte_desc">Espresso with steamed milk and little milk foam. Serve in a latte glass.</string>
+
+    <!-- WAJIB: string untuk cappuccino & mocha -->
+    <string name="cappuccino_title">CAPPUCCINO</string>
+    <string name="cappuccino_desc">Espresso with steamed milk and thick milk foam.</string>
+
+    <string name="mocha_title">CAFFE MOCHA</string>
+    <string name="mocha_desc">Chocolate + espresso + steamed milk; topped with foam.</string> <!-- Contoh string yang mungkin sudah ada -->
+
+    <!-- TAMBAHKAN ATAU PASTIKAN BARIS INI ADA -->
+    <string name="hello_blank_fragment">Halo blank fragment</string>
 </resources>

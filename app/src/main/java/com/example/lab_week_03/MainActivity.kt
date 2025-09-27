@@ -5,8 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
-interface CoffeeListener { fun onSelected(id: Int) }
+import androidx.fragment.app.FragmentContainerView
 
 class MainActivity : AppCompatActivity(), CoffeeListener {
 
@@ -14,14 +13,27 @@ class MainActivity : AppCompatActivity(), CoffeeListener {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val b = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(b.left, b.top, b.right, b.bottom); insets
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.fragment_container)) { v, i ->
+            val b = i.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(b.left, b.top, b.right, b.bottom); i
+        }
+
+        if (savedInstanceState == null) {
+            val container = findViewById<FragmentContainerView>(R.id.fragment_container)
+            supportFragmentManager.beginTransaction()
+                .add(container.id, ListFragment())
+                .commit()
         }
     }
 
     override fun onSelected(id: Int) {
-        val detail = supportFragmentManager.findFragmentById(R.id.fragment_detail) as DetailFragment
-        detail.setCoffeeData(id)
+        val container = findViewById<FragmentContainerView>(R.id.fragment_container)
+        val detail = DetailFragment().apply {
+            arguments = Bundle().apply { putInt(DetailFragment.COFFEE_ID, id) }
+        }
+        supportFragmentManager.beginTransaction()
+            .replace(container.id, detail)
+            .addToBackStack(null)
+            .commit()
     }
 }
