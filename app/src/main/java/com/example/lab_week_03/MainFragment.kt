@@ -21,7 +21,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_main, container, false).also {
+    ) = inflater.inflate(R.layout.fragment_main2, container, false).also {
         Log.d(TAG, "onCreateView")
     }
 
